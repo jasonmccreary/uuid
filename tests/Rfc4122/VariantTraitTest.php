@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Ramsey\Uuid\Test\Rfc4122;
 
 use Ramsey\Uuid\Exception\InvalidBytesException;
-use Ramsey\Uuid\Rfc4122\Fields;
 use Ramsey\Uuid\Rfc4122\VariantTrait;
 use Ramsey\Uuid\Test\TestCase;
 
@@ -19,12 +18,10 @@ class VariantTraitTest extends TestCase
      */
     public function testGetVariantThrowsExceptionForWrongNumberOfBytes(string $bytes): void
     {
-        $trait = $this->getTraitWithBytes($bytes);
-
         $this->expectException(InvalidBytesException::class);
         $this->expectExceptionMessage('Invalid number of bytes');
 
-        $trait->getVariant();
+        $this->getVariantFromBytes($bytes);
     }
 
     /**
@@ -45,9 +42,7 @@ class VariantTraitTest extends TestCase
     {
         $bytes = (string) hex2bin(str_replace('-', '', $uuid));
 
-        $trait = $this->getTraitWithBytes($bytes);
-
-        $this->assertSame($expectedVariant, $trait->getVariant());
+        $this->assertSame($expectedVariant, $this->getVariantFromBytes($bytes));
     }
 
     /**
@@ -97,12 +92,10 @@ class VariantTraitTest extends TestCase
 
     /**
      * Double cannot target a trait, so use it in an anonymous class instead
-     *
-     * @return Fields
      */
-    private function getTraitWithBytes(string $bytes): object
+    private function getVariantFromBytes(string $bytes): int
     {
-        return new class ($bytes) {
+        $trait = new class ($bytes) {
             use VariantTrait;
 
             public function __construct(private string $bytes)
@@ -124,5 +117,7 @@ class VariantTraitTest extends TestCase
                 return false;
             }
         };
+
+        return $trait->getVariant();
     }
 }
