@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ramsey\Uuid\Test\Encoder;
 
+use JMac\Testing\Double;
 use Mockery;
 use PHPUnit\Framework\MockObject\MockObject;
 use Ramsey\Uuid\Builder\UuidBuilderInterface;
@@ -39,9 +40,8 @@ class TimestampLastCombCodecTest extends TestCase
     {
         $fields = new Fields((string) hex2bin('0800200c9a6611e19b21ff6f8cb0c57d'));
 
-        $uuidMock = Mockery::mock(UuidInterface::class, [
-            'getFields' => $fields,
-        ]);
+        $uuidMock = Double::for(UuidInterface::class);
+        $uuidMock->allows('getFields')->returns($fields);
 
         $encodedUuid = $this->codec->encode($uuidMock);
 
@@ -50,9 +50,8 @@ class TimestampLastCombCodecTest extends TestCase
 
     public function testBinaryEncoding(): void
     {
-        $fields = Mockery::mock(FieldsInterface::class, [
-            'getBytes' => hex2bin('0800200c9a6611e19b21ff6f8cb0c57d'),
-        ]);
+        $fields = Double::for(FieldsInterface::class);
+        $fields->allows('getBytes')->returns(hex2bin('0800200c9a6611e19b21ff6f8cb0c57d'));
 
         /** @var MockObject & UuidInterface $uuidMock */
         $uuidMock = $this->getMockBuilder(UuidInterface::class)->getMock();

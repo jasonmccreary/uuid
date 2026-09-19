@@ -146,11 +146,10 @@ class UuidBuilderTest extends TestCase
 
     public function testBuildThrowsUnableToBuildExceptionForIncorrectVersionFields(): void
     {
-        $fields = Mockery::mock(FieldsInterface::class, [
-            'isNil' => false,
-            'isMax' => false,
-            'getVersion' => 255,
-        ]);
+        $fields = Double::for(FieldsInterface::class);
+        $fields->allows('isNil')->returns(false);
+        $fields->allows('isMax')->returns(false);
+        $fields->allows('getVersion')->returns(255);
 
         $builder = Double::for(UuidBuilder::class);
         $builder->shouldAllowMockingProtectedMethods();

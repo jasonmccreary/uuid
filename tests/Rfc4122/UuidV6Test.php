@@ -27,9 +27,8 @@ class UuidV6Test extends TestCase
      */
     public function testConstructorThrowsExceptionWhenFieldsAreNotValidForType(int $version): void
     {
-        $fields = Mockery::mock(FieldsInterface::class, [
-            'getVersion' => $version,
-        ]);
+        $fields = Double::for(FieldsInterface::class);
+        $fields->allows('getVersion')->returns($version);
 
         $numberConverter = Double::for(NumberConverterInterface::class);
         $codec = Double::for(CodecInterface::class);
@@ -174,17 +173,15 @@ class UuidV6Test extends TestCase
 
     public function testGetDateTimeThrowsException(): void
     {
-        $fields = Mockery::mock(FieldsInterface::class, [
-            'getVersion' => 6,
-            'getTimestamp' => new Hexadecimal('0'),
-        ]);
+        $fields = Double::for(FieldsInterface::class);
+        $fields->allows('getVersion')->returns(6);
+        $fields->allows('getTimestamp')->returns(new Hexadecimal('0'));
 
         $numberConverter = Double::for(NumberConverterInterface::class);
         $codec = Double::for(CodecInterface::class);
 
-        $timeConverter = Mockery::mock(TimeConverterInterface::class, [
-            'convertTime' => new Time('0', '1234567'),
-        ]);
+        $timeConverter = Double::for(TimeConverterInterface::class);
+        $timeConverter->allows('convertTime')->returns(new Time('0', '1234567'));
 
         $uuid = new UuidV6($fields, $numberConverter, $codec, $timeConverter);
 

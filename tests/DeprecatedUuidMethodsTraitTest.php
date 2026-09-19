@@ -37,17 +37,15 @@ class DeprecatedUuidMethodsTraitTest extends TestCase
 
     public function testGetDateTimeThrowsException(): void
     {
-        $fields = Mockery::mock(FieldsInterface::class, [
-            'getVersion' => 1,
-            'getTimestamp' => new Hexadecimal('0'),
-        ]);
+        $fields = Double::for(FieldsInterface::class);
+        $fields->allows('getVersion')->returns(1);
+        $fields->allows('getTimestamp')->returns(new Hexadecimal('0'));
 
         $numberConverter = Double::for(NumberConverterInterface::class);
         $codec = Double::for(CodecInterface::class);
 
-        $timeConverter = Mockery::mock(TimeConverterInterface::class, [
-            'convertTime' => new Time('0', '1234567'),
-        ]);
+        $timeConverter = Double::for(TimeConverterInterface::class);
+        $timeConverter->allows('convertTime')->returns(new Time('0', '1234567'));
 
         $uuid = new Uuid($fields, $numberConverter, $codec, $timeConverter);
 

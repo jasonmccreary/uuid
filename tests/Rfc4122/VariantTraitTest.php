@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ramsey\Uuid\Test\Rfc4122;
 
+use JMac\Testing\Double;
 use Mockery;
 use Ramsey\Uuid\Exception\InvalidBytesException;
 use Ramsey\Uuid\Rfc4122\Fields;
@@ -21,11 +22,10 @@ class VariantTraitTest extends TestCase
     public function testGetVariantThrowsExceptionForWrongNumberOfBytes(string $bytes): void
     {
         /** @var Fields $trait */
-        $trait = Mockery::mock(VariantTrait::class, [
-            'getBytes' => $bytes,
-            'isMax' => false,
-            'isNil' => false,
-        ]);
+        $trait = Double::for(VariantTrait::class);
+        $trait->allows('getBytes')->returns($bytes);
+        $trait->allows('isMax')->returns(false);
+        $trait->allows('isNil')->returns(false);
 
         $this->expectException(InvalidBytesException::class);
         $this->expectExceptionMessage('Invalid number of bytes');
@@ -52,11 +52,10 @@ class VariantTraitTest extends TestCase
         $bytes = (string) hex2bin(str_replace('-', '', $uuid));
 
         /** @var Fields $trait */
-        $trait = Mockery::mock(VariantTrait::class, [
-            'getBytes' => $bytes,
-            'isMax' => false,
-            'isNil' => false,
-        ]);
+        $trait = Double::for(VariantTrait::class);
+        $trait->allows('getBytes')->returns($bytes);
+        $trait->allows('isMax')->returns(false);
+        $trait->allows('isNil')->returns(false);
 
         $this->assertSame($expectedVariant, $trait->getVariant());
     }

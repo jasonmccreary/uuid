@@ -157,11 +157,10 @@ class OrderedTimeCodecTest extends TestCase
         $builder = new DefaultUuidBuilder($numberConverter, $timeConverter);
         $codec = new OrderedTimeCodec($builder);
 
-        $uuid = Mockery::mock(UuidInterface::class, [
-            'getVariant' => 0,
-            'toString' => $nonRfc4122Uuid,
-            'getFields' => $fields,
-        ]);
+        $uuid = Double::for(UuidInterface::class);
+        $uuid->allows('getVariant')->returns(0);
+        $uuid->allows('toString')->returns($nonRfc4122Uuid);
+        $uuid->allows('getFields')->returns($fields);
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Expected version 1 (time-based) UUID');

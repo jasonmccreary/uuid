@@ -51,15 +51,13 @@ class DceSecurityGeneratorTest extends TestCase
         string $expectedTimeMidHi
     ): void {
         /** @var DceSecurityProviderInterface $dceSecurityProvider */
-        $dceSecurityProvider = Mockery::mock(DceSecurityProviderInterface::class, [
-            'getUid' => new IntegerObject($uid),
-            'getGid' => new IntegerObject($gid),
-        ]);
+        $dceSecurityProvider = Double::for(DceSecurityProviderInterface::class);
+        $dceSecurityProvider->allows('getUid')->returns(new IntegerObject($uid));
+        $dceSecurityProvider->allows('getGid')->returns(new IntegerObject($gid));
 
         /** @var NodeProviderInterface $nodeProvider */
-        $nodeProvider = Mockery::mock(NodeProviderInterface::class, [
-            'getNode' => new Hexadecimal($node),
-        ]);
+        $nodeProvider = Double::for(NodeProviderInterface::class);
+        $nodeProvider->allows('getNode')->returns(new Hexadecimal($node));
 
         $timeProvider = new FixedTimeProvider(new Time($seconds, $microseconds));
 

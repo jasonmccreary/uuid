@@ -21,9 +21,8 @@ class UuidV8Test extends TestCase
      */
     public function testConstructorThrowsExceptionWhenFieldsAreNotValidForType(int $version): void
     {
-        $fields = Mockery::mock(FieldsInterface::class, [
-            'getVersion' => $version,
-        ]);
+        $fields = Double::for(FieldsInterface::class);
+        $fields->allows('getVersion')->returns($version);
 
         $numberConverter = Double::for(NumberConverterInterface::class);
         $codec = Double::for(CodecInterface::class);
