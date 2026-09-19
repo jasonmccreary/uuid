@@ -557,10 +557,6 @@ class ExpectedBehaviorTest extends TestCase
             });
 
         $timeProvider = Double::for('Ramsey\Uuid\Provider\TimeProviderInterface');
-        $timeProvider->allows('currentTime')->returns([
-                'sec' => 1578522046,
-                'usec' => 10000,
-            ]);
         $timeProvider->allows('getTime')->returns(new Time(1578522046, 10000));
 
         $generator = new DefaultTimeGenerator($nodeProvider, $timeConverter, $timeProvider);
