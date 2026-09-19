@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ramsey\Uuid\Test\Generator;
 
+use JMac\Testing\Double;
 use Exception;
 use Mockery;
 use Mockery\MockInterface;
@@ -139,7 +140,7 @@ class DefaultTimeGeneratorTest extends TestCase
             ->with($this->currentTime['sec'], $this->currentTime['usec'])
             ->willReturn($this->calculatedTime);
 
-        $binaryUtils = Mockery::mock('alias:' . BinaryUtils::class);
+        $binaryUtils = Double::for('alias:' . BinaryUtils::class);
         $binaryUtils->shouldNotReceive('applyVersion');
         $binaryUtils->shouldNotReceive('applyVariant');
 

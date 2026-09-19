@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ramsey\Uuid\Test\Rfc4122;
 
+use JMac\Testing\Double;
 use Mockery;
 use Ramsey\Uuid\Codec\StringCodec;
 use Ramsey\Uuid\Converter\Number\GenericNumberConverter;
@@ -151,12 +152,12 @@ class UuidBuilderTest extends TestCase
             'getVersion' => 255,
         ]);
 
-        $builder = Mockery::mock(UuidBuilder::class);
+        $builder = Double::for(UuidBuilder::class);
         $builder->shouldAllowMockingProtectedMethods();
         $builder->shouldReceive('buildFields')->andReturn($fields);
         $builder->shouldReceive('build')->passthru();
 
-        $codec = Mockery::mock(StringCodec::class);
+        $codec = Double::for(StringCodec::class);
 
         $this->expectException(UnableToBuildUuidException::class);
         $this->expectExceptionMessage(

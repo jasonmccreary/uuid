@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ramsey\Uuid\Test;
 
+use JMac\Testing\Double;
 use BadMethodCallException;
 use Brick\Math\BigDecimal;
 use DateTimeImmutable;
@@ -96,7 +97,7 @@ class UuidTest extends TestCase
 
     public function testFromHexadecimalThrowsWhenMethodDoesNotExist(): void
     {
-        $factory = Mockery::mock(UuidFactoryInterface::class);
+        $factory = Double::for(UuidFactoryInterface::class);
         Uuid::setFactory($factory);
 
         $hex = new Hexadecimal('0x1EA78DEB37CE625E8F1A025041000001');
@@ -764,7 +765,7 @@ class UuidTest extends TestCase
     public function testUuid7ThrowsExceptionForUnsupportedFactory(): void
     {
         /** @var UuidFactoryInterface&MockInterface $factory */
-        $factory = Mockery::mock(UuidFactoryInterface::class);
+        $factory = Double::for(UuidFactoryInterface::class);
 
         Uuid::setFactory($factory);
 
@@ -855,7 +856,7 @@ class UuidTest extends TestCase
     public function testUuid8ThrowsExceptionForUnsupportedFactory(): void
     {
         /** @var UuidFactoryInterface&MockInterface $factory */
-        $factory = Mockery::mock(UuidFactoryInterface::class);
+        $factory = Double::for(UuidFactoryInterface::class);
 
         Uuid::setFactory($factory);
 
@@ -1849,7 +1850,7 @@ class UuidTest extends TestCase
     public function testGetDateTimeThrowsExceptionWhenDateTimeCannotParseDate(): void
     {
         $numberConverter = new BigNumberConverter();
-        $timeConverter = Mockery::mock(TimeConverterInterface::class);
+        $timeConverter = Double::for(TimeConverterInterface::class);
 
         $timeConverter
             ->shouldReceive('convertTime')

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ramsey\Uuid\Test;
 
+use JMac\Testing\Double;
 use Mockery;
 use Ramsey\Uuid\Codec\CodecInterface;
 use Ramsey\Uuid\Converter\NumberConverterInterface;
@@ -24,8 +25,8 @@ class DeprecatedUuidMethodsTraitTest extends TestCase
         $calculator = new BrickMathCalculator();
 
         $fields = new Fields((string) hex2bin('ff6f8cb0c57d11e19b210800200c9a66'));
-        $numberConverter = Mockery::mock(NumberConverterInterface::class);
-        $codec = Mockery::mock(CodecInterface::class);
+        $numberConverter = Double::for(NumberConverterInterface::class);
+        $codec = Double::for(CodecInterface::class);
         $timeConverter = new GenericTimeConverter($calculator);
 
         $uuid = new Uuid($fields, $numberConverter, $codec, $timeConverter);
@@ -41,8 +42,8 @@ class DeprecatedUuidMethodsTraitTest extends TestCase
             'getTimestamp' => new Hexadecimal('0'),
         ]);
 
-        $numberConverter = Mockery::mock(NumberConverterInterface::class);
-        $codec = Mockery::mock(CodecInterface::class);
+        $numberConverter = Double::for(NumberConverterInterface::class);
+        $codec = Double::for(CodecInterface::class);
 
         $timeConverter = Mockery::mock(TimeConverterInterface::class, [
             'convertTime' => new Time('0', '1234567'),

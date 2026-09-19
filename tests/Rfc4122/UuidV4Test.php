@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ramsey\Uuid\Test\Rfc4122;
 
+use JMac\Testing\Double;
 use Mockery;
 use Ramsey\Uuid\Codec\CodecInterface;
 use Ramsey\Uuid\Converter\NumberConverterInterface;
@@ -24,9 +25,9 @@ class UuidV4Test extends TestCase
             'getVersion' => $version,
         ]);
 
-        $numberConverter = Mockery::mock(NumberConverterInterface::class);
-        $codec = Mockery::mock(CodecInterface::class);
-        $timeConverter = Mockery::mock(TimeConverterInterface::class);
+        $numberConverter = Double::for(NumberConverterInterface::class);
+        $codec = Double::for(CodecInterface::class);
+        $timeConverter = Double::for(TimeConverterInterface::class);
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ramsey\Uuid\Test\Builder;
 
+use JMac\Testing\Double;
 use Mockery;
 use Ramsey\Uuid\Builder\DefaultUuidBuilder;
 use Ramsey\Uuid\Codec\CodecInterface;
@@ -19,9 +20,9 @@ class DefaultUuidBuilderTest extends TestCase
 {
     public function testBuildCreatesUuid(): void
     {
-        $numberConverter = Mockery::mock(NumberConverterInterface::class);
-        $timeConverter = Mockery::mock(TimeConverterInterface::class);
-        $codec = Mockery::mock(CodecInterface::class);
+        $numberConverter = Double::for(NumberConverterInterface::class);
+        $timeConverter = Double::for(TimeConverterInterface::class);
+        $codec = Double::for(CodecInterface::class);
 
         $builder = new DefaultUuidBuilder($numberConverter, $timeConverter);
 

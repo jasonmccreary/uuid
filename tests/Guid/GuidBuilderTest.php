@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ramsey\Uuid\Test\Guid;
 
+use JMac\Testing\Double;
 use Mockery;
 use Ramsey\Uuid\Codec\CodecInterface;
 use Ramsey\Uuid\Exception\UnableToBuildUuidException;
@@ -15,9 +16,9 @@ class GuidBuilderTest extends TestCase
 {
     public function testBuildThrowsException(): void
     {
-        $codec = Mockery::mock(CodecInterface::class);
+        $codec = Double::for(CodecInterface::class);
 
-        $builder = Mockery::mock(GuidBuilder::class);
+        $builder = Double::for(GuidBuilder::class);
         $builder->shouldAllowMockingProtectedMethods();
         $builder->shouldReceive('buildFields')->andThrow(
             RuntimeException::class,

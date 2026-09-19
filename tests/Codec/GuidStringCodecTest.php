@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ramsey\Uuid\Test\Codec;
 
+use JMac\Testing\Double;
 use Mockery;
 use PHPUnit\Framework\MockObject\MockObject;
 use Ramsey\Uuid\Builder\UuidBuilderInterface;
@@ -74,8 +75,8 @@ class GuidStringCodecTest extends TestCase
 
         $fields = new Fields($expectedBytes);
         $codec = new GuidStringCodec($this->builder);
-        $numberConverter = Mockery::mock(NumberConverterInterface::class);
-        $timeConverter = Mockery::mock(TimeConverterInterface::class);
+        $numberConverter = Double::for(NumberConverterInterface::class);
+        $timeConverter = Double::for(TimeConverterInterface::class);
 
         $uuid = new Guid($fields, $numberConverter, $codec, $timeConverter);
 
@@ -88,8 +89,8 @@ class GuidStringCodecTest extends TestCase
     {
         $string = 'uuid:12345678-1234-4bcd-abef-1234abcd4321';
 
-        $numberConverter = Mockery::mock(NumberConverterInterface::class);
-        $timeConverter = Mockery::mock(TimeConverterInterface::class);
+        $numberConverter = Double::for(NumberConverterInterface::class);
+        $timeConverter = Double::for(TimeConverterInterface::class);
         $builder = new GuidBuilder($numberConverter, $timeConverter);
         $codec = new GuidStringCodec($builder);
         $guid = $codec->decode($string);
