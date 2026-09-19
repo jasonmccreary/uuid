@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Ramsey\Uuid\Test\Rfc4122;
 
-use JMac\Testing\Double;
 use DateTimeInterface;
+use JMac\Testing\Double;
 use Ramsey\Uuid\Codec\CodecInterface;
 use Ramsey\Uuid\Converter\Number\GenericNumberConverter;
 use Ramsey\Uuid\Converter\NumberConverterInterface;

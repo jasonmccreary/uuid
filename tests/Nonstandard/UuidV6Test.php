@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Ramsey\Uuid\Test\Nonstandard;
 
-use JMac\Testing\Double;
 use DateTimeImmutable;
+use JMac\Testing\Double;
 use Ramsey\Uuid\Codec\CodecInterface;
 use Ramsey\Uuid\Converter\NumberConverterInterface;
 use Ramsey\Uuid\Converter\TimeConverterInterface;

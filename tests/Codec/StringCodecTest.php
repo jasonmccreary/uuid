@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Ramsey\Uuid\Test\Codec;
 
-use JMac\Testing\Double;
 use InvalidArgumentException;
+use JMac\Testing\Double;
 use PHPUnit\Framework\MockObject\MockObject;
 use Ramsey\Uuid\Builder\UuidBuilderInterface;
 use Ramsey\Uuid\Codec\StringCodec;

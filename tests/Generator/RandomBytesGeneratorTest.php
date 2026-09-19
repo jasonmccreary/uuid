@@ -7,13 +7,15 @@ namespace Ramsey\Uuid\Test\Generator;
 use Exception;
 use Ramsey\Uuid\Exception\RandomSourceException;
 use Ramsey\Uuid\Generator\RandomBytesGenerator;
+use Ramsey\Uuid\Test\MocksFunctions;
 use Ramsey\Uuid\Test\TestCase;
-use phpmock\mockery\PHPMockery;
 
 use function hex2bin;
 
 class RandomBytesGeneratorTest extends TestCase
 {
+    use MocksFunctions;
+
     /**
      * @return array<array{0: positive-int, 1: non-empty-string}>
      */
@@ -40,10 +42,12 @@ class RandomBytesGeneratorTest extends TestCase
     {
         $bytes = hex2bin($hex);
 
-        PHPMockery::mock('Ramsey\Uuid\Generator', 'random_bytes')
-            ->once()
-            ->with($length)
-            ->andReturn($bytes);
+        $this->expectFunctionCall(
+            'Ramsey\Uuid\Generator',
+            'random_bytes',
+            [$length],
+            $bytes,
+        );
 
         $generator = new RandomBytesGenerator();
 
@@ -56,10 +60,12 @@ class RandomBytesGeneratorTest extends TestCase
      */
     public function testGenerateThrowsExceptionWhenExceptionThrownByRandomBytes(): void
     {
-        PHPMockery::mock('Ramsey\Uuid\Generator', 'random_bytes')
-            ->once()
-            ->with(16)
-            ->andThrow(new Exception('Could not gather sufficient random data'));
+        $this->expectFunctionCall(
+            'Ramsey\Uuid\Generator',
+            'random_bytes',
+            [16],
+            new Exception('Could not gather sufficient random data'),
+        );
 
         $generator = new RandomBytesGenerator();
 

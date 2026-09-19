@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Ramsey\Uuid\Test;
 
-use JMac\Testing\Double;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
+use JMac\Testing\Double;
 use PHPUnit\Framework\MockObject\MockObject;
 use Ramsey\Uuid\Builder\UuidBuilderInterface;
 use Ramsey\Uuid\Codec\CodecInterface;
