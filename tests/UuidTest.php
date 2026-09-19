@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Ramsey\Uuid\Test;
 
-use JMac\Testing\Double;
 use BadMethodCallException;
 use Brick\Math\BigDecimal;
 use DateTimeImmutable;
 use DateTimeInterface;
-use Mockery\MockInterface;
+use JMac\Testing\Double;
 use PHPUnit\Framework\MockObject\MockObject;
 use Ramsey\Uuid\Builder\DefaultUuidBuilder;
 use Ramsey\Uuid\Codec\StringCodec;
@@ -763,7 +762,6 @@ class UuidTest extends TestCase
 
     public function testUuid7ThrowsExceptionForUnsupportedFactory(): void
     {
-        /** @var UuidFactoryInterface&MockInterface $factory */
         $factory = Double::for(UuidFactoryInterface::class);
 
         Uuid::setFactory($factory);
@@ -854,7 +852,6 @@ class UuidTest extends TestCase
 
     public function testUuid8ThrowsExceptionForUnsupportedFactory(): void
     {
-        /** @var UuidFactoryInterface&MockInterface $factory */
         $factory = Double::for(UuidFactoryInterface::class);
 
         Uuid::setFactory($factory);

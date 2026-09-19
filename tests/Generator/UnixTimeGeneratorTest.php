@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Ramsey\Uuid\Test\Generator;
 
-use JMac\Testing\Double;
 use DateTimeImmutable;
-use Mockery\MockInterface;
+use JMac\Testing\Double;
 use Ramsey\Uuid\Generator\RandomBytesGenerator;
 use Ramsey\Uuid\Generator\RandomGeneratorInterface;
 use Ramsey\Uuid\Generator\UnixTimeGenerator;
 use Ramsey\Uuid\Test\TestCase;
+
+use function str_repeat;
 
 class UnixTimeGeneratorTest extends TestCase
 {
@@ -25,9 +26,8 @@ class UnixTimeGeneratorTest extends TestCase
         $dateTime = new DateTimeImmutable('@1578612359.521023');
         $expectedBytes = "\x01\x6f\x8c\xa1\x01\x61\x03\x00\xff\x00\xff\x00\xff\x00\xff\x00";
 
-        /** @var RandomGeneratorInterface&MockInterface $randomGenerator */
         $randomGenerator = Double::for(RandomGeneratorInterface::class);
-        $randomGenerator->expects('generate')->with(16)->returns("\xff\x00\xff\x00\xff\x00\xff\x00\xff\x00\xff\x00\xff\x00\xff\x00");
+        $randomGenerator->expects('generate')->with(16)->returns(str_repeat("\xff\x00", 8));
 
         $unixTimeGenerator = new UnixTimeGenerator($randomGenerator);
 
@@ -128,10 +128,9 @@ class UnixTimeGeneratorTest extends TestCase
      */
     public function testGenerateProducesMonotonicResultsStartingWithAllBitsSet(): void
     {
-        /** @var RandomGeneratorInterface&MockInterface $randomGenerator */
         $randomGenerator = Double::for(RandomGeneratorInterface::class);
-        $randomGenerator->expects('generate')->with(16)->returns("\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff");
-        $randomGenerator->allows('generate')->with(10)->returns("\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff");
+        $randomGenerator->expects('generate')->with(16)->returns(str_repeat("\xff", 16));
+        $randomGenerator->allows('generate')->with(10)->returns(str_repeat("\xff", 10));
 
         $unixTimeGenerator = new UnixTimeGenerator($randomGenerator);
 
@@ -154,10 +153,9 @@ class UnixTimeGeneratorTest extends TestCase
     {
         $dateTime = new DateTimeImmutable('now');
 
-        /** @var RandomGeneratorInterface&MockInterface $randomGenerator */
         $randomGenerator = Double::for(RandomGeneratorInterface::class);
-        $randomGenerator->expects('generate')->with(16)->returns("\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff");
-        $randomGenerator->allows('generate')->with(10)->returns("\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff");
+        $randomGenerator->expects('generate')->with(16)->returns(str_repeat("\xff", 16));
+        $randomGenerator->allows('generate')->with(10)->returns(str_repeat("\xff", 10));
 
         $unixTimeGenerator = new UnixTimeGenerator($randomGenerator);
 
@@ -176,10 +174,9 @@ class UnixTimeGeneratorTest extends TestCase
      */
     public function testGenerateProducesMonotonicResultsStartingWithAllBitsSetFor32BitPath(): void
     {
-        /** @var RandomGeneratorInterface&MockInterface $randomGenerator */
         $randomGenerator = Double::for(RandomGeneratorInterface::class);
-        $randomGenerator->expects('generate')->with(16)->returns("\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff");
-        $randomGenerator->allows('generate')->with(10)->returns("\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff");
+        $randomGenerator->expects('generate')->with(16)->returns(str_repeat("\xff", 16));
+        $randomGenerator->allows('generate')->with(10)->returns(str_repeat("\xff", 10));
 
         $unixTimeGenerator = new UnixTimeGenerator($randomGenerator, 4);
 
@@ -202,10 +199,9 @@ class UnixTimeGeneratorTest extends TestCase
     {
         $dateTime = new DateTimeImmutable('now');
 
-        /** @var RandomGeneratorInterface&MockInterface $randomGenerator */
         $randomGenerator = Double::for(RandomGeneratorInterface::class);
-        $randomGenerator->expects('generate')->with(16)->returns("\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff");
-        $randomGenerator->allows('generate')->with(10)->returns("\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff");
+        $randomGenerator->expects('generate')->with(16)->returns(str_repeat("\xff", 16));
+        $randomGenerator->allows('generate')->with(10)->returns(str_repeat("\xff", 10));
 
         $unixTimeGenerator = new UnixTimeGenerator($randomGenerator, 4);
 
