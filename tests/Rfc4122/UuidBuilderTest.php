@@ -12,7 +12,6 @@ use Ramsey\Uuid\Exception\UnableToBuildUuidException;
 use Ramsey\Uuid\Math\BrickMathCalculator;
 use Ramsey\Uuid\Nonstandard\UuidV6 as NonstandardUuidV6;
 use Ramsey\Uuid\Rfc4122\Fields;
-use Ramsey\Uuid\Rfc4122\FieldsInterface;
 use Ramsey\Uuid\Rfc4122\MaxUuid;
 use Ramsey\Uuid\Rfc4122\NilUuid;
 use Ramsey\Uuid\Rfc4122\UuidBuilder;
@@ -145,15 +144,13 @@ class UuidBuilderTest extends TestCase
 
     public function testBuildThrowsUnableToBuildExceptionForIncorrectVersionFields(): void
     {
-        $fields = Double::for(FieldsInterface::class);
+        $fields = Double::for(FieldsWithIsMax::class);
         $fields->allows('isNil')->returns(false);
         $fields->allows('isMax')->returns(false);
         $fields->allows('getVersion')->returns(255);
 
-        $builder = Double::for(UuidBuilder::class);
-        $builder->shouldAllowMockingProtectedMethods();
+        $builder = Double::for(UuidBuilder::class)->passthru();
         $builder->allows('buildFields')->returns($fields);
-        $builder->shouldReceive('build')->passthru();
 
         $codec = Double::for(StringCodec::class);
 

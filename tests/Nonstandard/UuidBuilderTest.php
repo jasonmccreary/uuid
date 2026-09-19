@@ -17,10 +17,8 @@ class UuidBuilderTest extends TestCase
     {
         $codec = Double::for(CodecInterface::class);
 
-        $builder = Double::for(UuidBuilder::class);
-        $builder->shouldAllowMockingProtectedMethods();
+        $builder = Double::for(UuidBuilder::class)->passthru();
         $builder->allows('buildFields')->throws(new RuntimeException('exception thrown'));
-        $builder->shouldReceive('build')->passthru();
 
         $this->expectException(UnableToBuildUuidException::class);
         $this->expectExceptionMessage('exception thrown');
