@@ -150,7 +150,7 @@ class UuidBuilderTest extends TestCase
         $fields->allows('getVersion')->returns(255);
 
         $builder = Double::for(UuidBuilder::class)->passthru();
-        $builder->allows('buildFields')->returns($fields);
+        $builder->expects('buildFields')->returns($fields);
 
         $codec = Double::for(StringCodec::class);
 
