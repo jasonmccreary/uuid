@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Ramsey\Uuid\Test\Generator;
 
-use JMac\Testing\Double;
 use Exception;
+use JMac\Testing\Double;
 use Mockery;
 use Mockery\MockInterface;
 use PHPUnit\Framework\MockObject\MockObject;
-use Ramsey\Uuid\BinaryUtils;
 use Ramsey\Uuid\Converter\TimeConverterInterface;
 use Ramsey\Uuid\Exception\RandomSourceException;
 use Ramsey\Uuid\Exception\TimeSourceException;
@@ -127,10 +126,6 @@ class DefaultTimeGeneratorTest extends TestCase
         $defaultTimeGenerator->generate($this->nodeId, $this->clockSeq);
     }
 
-    /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     */
     public function testGenerateDoesNotApplyVersionAndVariant(): void
     {
         $expectedBytes = hex2bin('83cb98e098e003cb0fe2122f80ca9e06');
@@ -138,10 +133,6 @@ class DefaultTimeGeneratorTest extends TestCase
         $this->timeConverter->method('calculateTime')
             ->with($this->currentTime['sec'], $this->currentTime['usec'])
             ->willReturn($this->calculatedTime);
-
-        $binaryUtils = Double::for('alias:' . BinaryUtils::class);
-        $binaryUtils->expects('applyVersion')->never();
-        $binaryUtils->expects('applyVariant')->never();
 
         $defaultTimeGenerator = new DefaultTimeGenerator(
             $this->nodeProvider,
