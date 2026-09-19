@@ -4,47 +4,30 @@ declare(strict_types=1);
 
 namespace Ramsey\Uuid\Test\Generator;
 
-use JMac\Testing\Matching\Argument;
 use JMac\Testing\Double;
-use Mockery\MockInterface;
 use Ramsey\Uuid\Generator\RandomLibAdapter;
 use Ramsey\Uuid\Test\TestCase;
-use RandomLib\Factory as RandomLibFactory;
 use RandomLib\Generator;
+
+use function strlen;
 
 class RandomLibAdapterTest extends TestCase
 {
-    /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     */
-    public function testAdapterWithGeneratorDoesNotCreateGenerator(): void
-    {
-        $factory = Double::for('overload:' . RandomLibFactory::class);
-        $factory->expects('getHighStrengthGenerator')->never();
-
-        $generator = $this->getMockBuilder(Generator::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        /** @phpstan-ignore method.alreadyNarrowedType */
-        $this->assertInstanceOf(RandomLibAdapter::class, new RandomLibAdapter($generator));
-    }
-
-    /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     */
-    public function testAdapterWithoutGeneratorCreatesGenerator(): void
+    public function testAdapterWithGeneratorUsesGenerator(): void
     {
         $generator = Double::for(Generator::class);
+        $generator->expects('generate')->with(4)->returns('abcd');
 
-        /** @var RandomLibFactory&MockInterface $factory */
-        $factory = Double::for('overload:' . RandomLibFactory::class);
-        $factory->expects('getHighStrengthGenerator')->with(Argument::none())->returns($generator);
+        $adapter = new RandomLibAdapter($generator);
 
-        /** @phpstan-ignore method.alreadyNarrowedType */
-        $this->assertInstanceOf(RandomLibAdapter::class, new RandomLibAdapter());
+        $this->assertSame('abcd', $adapter->generate(4));
+    }
+
+    public function testAdapterWithoutGeneratorCreatesGenerator(): void
+    {
+        $adapter = new RandomLibAdapter();
+
+        $this->assertSame(8, strlen($adapter->generate(8)));
     }
 
     public function testGenerateUsesGenerator(): void
