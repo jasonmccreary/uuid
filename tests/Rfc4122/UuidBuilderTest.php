@@ -154,7 +154,7 @@ class UuidBuilderTest extends TestCase
 
         $builder = Double::for(UuidBuilder::class);
         $builder->shouldAllowMockingProtectedMethods();
-        $builder->shouldReceive('buildFields')->andReturn($fields);
+        $builder->allows('buildFields')->returns($fields);
         $builder->shouldReceive('build')->passthru();
 
         $codec = Double::for(StringCodec::class);

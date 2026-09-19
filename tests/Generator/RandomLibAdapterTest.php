@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ramsey\Uuid\Test\Generator;
 
+use JMac\Testing\Matching\Argument;
 use JMac\Testing\Double;
 use Mockery;
 use Mockery\MockInterface;
@@ -21,7 +22,7 @@ class RandomLibAdapterTest extends TestCase
     public function testAdapterWithGeneratorDoesNotCreateGenerator(): void
     {
         $factory = Double::for('overload:' . RandomLibFactory::class);
-        $factory->shouldNotReceive('getHighStrengthGenerator');
+        $factory->expects('getHighStrengthGenerator')->never();
 
         $generator = $this->getMockBuilder(Generator::class)
             ->disableOriginalConstructor()
@@ -41,7 +42,7 @@ class RandomLibAdapterTest extends TestCase
 
         /** @var RandomLibFactory&MockInterface $factory */
         $factory = Double::for('overload:' . RandomLibFactory::class);
-        $factory->expects('getHighStrengthGenerator')->withArgs([])->andReturns($generator);
+        $factory->expects('getHighStrengthGenerator')->with(Argument::none())->returns($generator);
 
         /** @phpstan-ignore method.alreadyNarrowedType */
         $this->assertInstanceOf(RandomLibAdapter::class, new RandomLibAdapter());

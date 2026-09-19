@@ -20,10 +20,7 @@ class GuidBuilderTest extends TestCase
 
         $builder = Double::for(GuidBuilder::class);
         $builder->shouldAllowMockingProtectedMethods();
-        $builder->shouldReceive('buildFields')->andThrow(
-            RuntimeException::class,
-            'exception thrown'
-        );
+        $builder->allows('buildFields')->throws(new RuntimeException('exception thrown'));
         $builder->shouldReceive('build')->passthru();
 
         $this->expectException(UnableToBuildUuidException::class);

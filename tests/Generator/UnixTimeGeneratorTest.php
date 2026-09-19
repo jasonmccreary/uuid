@@ -28,9 +28,7 @@ class UnixTimeGeneratorTest extends TestCase
 
         /** @var RandomGeneratorInterface&MockInterface $randomGenerator */
         $randomGenerator = Double::for(RandomGeneratorInterface::class);
-        $randomGenerator->expects('generate')->withArgs([16])->andReturns(
-            "\xff\x00\xff\x00\xff\x00\xff\x00\xff\x00\xff\x00\xff\x00\xff\x00",
-        );
+        $randomGenerator->expects('generate')->with(16)->returns("\xff\x00\xff\x00\xff\x00\xff\x00\xff\x00\xff\x00\xff\x00\xff\x00");
 
         $unixTimeGenerator = new UnixTimeGenerator($randomGenerator);
 
@@ -133,12 +131,8 @@ class UnixTimeGeneratorTest extends TestCase
     {
         /** @var RandomGeneratorInterface&MockInterface $randomGenerator */
         $randomGenerator = Double::for(RandomGeneratorInterface::class);
-        $randomGenerator->expects('generate')->withArgs([16])->andReturns(
-            "\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff",
-        );
-        $randomGenerator->allows('generate')->withArgs([10])->andReturns(
-            "\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff",
-        );
+        $randomGenerator->expects('generate')->with(16)->returns("\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff");
+        $randomGenerator->allows('generate')->with(10)->returns("\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff");
 
         $unixTimeGenerator = new UnixTimeGenerator($randomGenerator);
 
@@ -163,12 +157,8 @@ class UnixTimeGeneratorTest extends TestCase
 
         /** @var RandomGeneratorInterface&MockInterface $randomGenerator */
         $randomGenerator = Double::for(RandomGeneratorInterface::class);
-        $randomGenerator->expects('generate')->withArgs([16])->andReturns(
-            "\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff",
-        );
-        $randomGenerator->allows('generate')->withArgs([10])->andReturns(
-            "\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff",
-        );
+        $randomGenerator->expects('generate')->with(16)->returns("\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff");
+        $randomGenerator->allows('generate')->with(10)->returns("\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff");
 
         $unixTimeGenerator = new UnixTimeGenerator($randomGenerator);
 
@@ -189,12 +179,8 @@ class UnixTimeGeneratorTest extends TestCase
     {
         /** @var RandomGeneratorInterface&MockInterface $randomGenerator */
         $randomGenerator = Double::for(RandomGeneratorInterface::class);
-        $randomGenerator->expects('generate')->withArgs([16])->andReturns(
-            "\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff",
-        );
-        $randomGenerator->allows('generate')->withArgs([10])->andReturns(
-            "\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff",
-        );
+        $randomGenerator->expects('generate')->with(16)->returns("\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff");
+        $randomGenerator->allows('generate')->with(10)->returns("\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff");
 
         $unixTimeGenerator = new UnixTimeGenerator($randomGenerator, 4);
 
@@ -219,12 +205,8 @@ class UnixTimeGeneratorTest extends TestCase
 
         /** @var RandomGeneratorInterface&MockInterface $randomGenerator */
         $randomGenerator = Double::for(RandomGeneratorInterface::class);
-        $randomGenerator->expects('generate')->withArgs([16])->andReturns(
-            "\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff",
-        );
-        $randomGenerator->allows('generate')->withArgs([10])->andReturns(
-            "\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff",
-        );
+        $randomGenerator->expects('generate')->with(16)->returns("\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff");
+        $randomGenerator->allows('generate')->with(10)->returns("\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff");
 
         $unixTimeGenerator = new UnixTimeGenerator($randomGenerator, 4);
 

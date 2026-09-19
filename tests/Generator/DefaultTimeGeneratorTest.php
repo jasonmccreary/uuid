@@ -141,8 +141,8 @@ class DefaultTimeGeneratorTest extends TestCase
             ->willReturn($this->calculatedTime);
 
         $binaryUtils = Double::for('alias:' . BinaryUtils::class);
-        $binaryUtils->shouldNotReceive('applyVersion');
-        $binaryUtils->shouldNotReceive('applyVariant');
+        $binaryUtils->expects('applyVersion')->never();
+        $binaryUtils->expects('applyVariant')->never();
 
         $defaultTimeGenerator = new DefaultTimeGenerator(
             $this->nodeProvider,
