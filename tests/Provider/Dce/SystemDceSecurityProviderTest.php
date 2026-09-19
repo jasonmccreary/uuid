@@ -416,7 +416,7 @@ class SystemDceSecurityProviderTest extends TestCase
             'Ramsey\Uuid\Provider\Dce',
             'shell_exec',
             [
-                fn ($command) => preg_match(
+                fn (string $command) => preg_match(
                     "/^wmic group get name,sid \| findstr \/b \/i (\"|\')Users(\"|\')$/",
                     $command,
                 ) === 1,
@@ -471,7 +471,7 @@ class SystemDceSecurityProviderTest extends TestCase
             'Ramsey\Uuid\Provider\Dce',
             'shell_exec',
             [
-                fn ($command) => preg_match(
+                fn (string $command) => preg_match(
                     "/^wmic group get name,sid \| findstr \/b \/i (\"|\'){$expectedGroup}(\"|\')$/",
                     $command,
                 ) === 1,

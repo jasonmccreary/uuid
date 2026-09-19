@@ -53,7 +53,7 @@ trait MocksFunctions
             ->setNamespace($namespace)
             ->setName($function)
             ->setFunction(function (mixed ...$actual) use ($key): mixed {
-                return $this->dispatchFunctionCall($key, $actual);
+                return $this->dispatchFunctionCall($key, array_values($actual));
             })
             ->build();
 

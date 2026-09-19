@@ -49,12 +49,10 @@ class DceSecurityGeneratorTest extends TestCase
         string $expectedNode,
         string $expectedTimeMidHi
     ): void {
-        /** @var DceSecurityProviderInterface $dceSecurityProvider */
         $dceSecurityProvider = Double::for(DceSecurityProviderInterface::class);
         $dceSecurityProvider->allows('getUid')->returns(new IntegerObject($uid));
         $dceSecurityProvider->allows('getGid')->returns(new IntegerObject($gid));
 
-        /** @var NodeProviderInterface $nodeProvider */
         $nodeProvider = Double::for(NodeProviderInterface::class);
         $nodeProvider->allows('getNode')->returns(new Hexadecimal($node));
 

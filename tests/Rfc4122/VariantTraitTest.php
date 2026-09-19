@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ramsey\Uuid\Test\Rfc4122;
 
 use Ramsey\Uuid\Exception\InvalidBytesException;
+use Ramsey\Uuid\Rfc4122\Fields;
 use Ramsey\Uuid\Rfc4122\VariantTrait;
 use Ramsey\Uuid\Test\TestCase;
 
@@ -96,6 +97,8 @@ class VariantTraitTest extends TestCase
 
     /**
      * Double cannot target a trait, so use it in an anonymous class instead
+     *
+     * @return Fields
      */
     private function getTraitWithBytes(string $bytes): object
     {
