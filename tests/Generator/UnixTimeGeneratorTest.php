@@ -6,7 +6,6 @@ namespace Ramsey\Uuid\Test\Generator;
 
 use JMac\Testing\Double;
 use DateTimeImmutable;
-use Mockery;
 use Mockery\MockInterface;
 use Ramsey\Uuid\Generator\RandomBytesGenerator;
 use Ramsey\Uuid\Generator\RandomGeneratorInterface;

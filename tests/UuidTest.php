@@ -9,7 +9,6 @@ use BadMethodCallException;
 use Brick\Math\BigDecimal;
 use DateTimeImmutable;
 use DateTimeInterface;
-use Mockery;
 use Mockery\MockInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use Ramsey\Uuid\Builder\DefaultUuidBuilder;

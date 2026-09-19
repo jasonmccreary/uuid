@@ -6,7 +6,6 @@ namespace Ramsey\Uuid\Test\Generator;
 
 use JMac\Testing\Matching\Argument;
 use JMac\Testing\Double;
-use Mockery;
 use Mockery\MockInterface;
 use Ramsey\Uuid\Generator\RandomLibAdapter;
 use Ramsey\Uuid\Test\TestCase;

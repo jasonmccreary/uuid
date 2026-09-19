@@ -6,7 +6,6 @@ namespace Ramsey\Uuid\Test\Rfc4122;
 
 use JMac\Testing\Double;
 use DateTimeInterface;
-use Mockery;
 use Ramsey\Uuid\Codec\CodecInterface;
 use Ramsey\Uuid\Converter\Number\GenericNumberConverter;
 use Ramsey\Uuid\Converter\NumberConverterInterface;
