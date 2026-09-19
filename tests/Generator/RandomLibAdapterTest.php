@@ -41,7 +41,7 @@ class RandomLibAdapterTest extends TestCase
 
         /** @var RandomLibFactory&MockInterface $factory */
         $factory = Double::for('overload:' . RandomLibFactory::class);
-        $factory->expects()->getHighStrengthGenerator()->andReturns($generator);
+        $factory->expects('getHighStrengthGenerator')->withArgs([])->andReturns($generator);
 
         /** @phpstan-ignore method.alreadyNarrowedType */
         $this->assertInstanceOf(RandomLibAdapter::class, new RandomLibAdapter());
