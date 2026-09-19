@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Ramsey\Uuid\Test\Rfc4122;
 
-use JMac\Testing\Double;
 use Ramsey\Uuid\Exception\InvalidBytesException;
-use Ramsey\Uuid\Rfc4122\Fields;
 use Ramsey\Uuid\Rfc4122\VariantTrait;
 use Ramsey\Uuid\Test\TestCase;
 
@@ -20,11 +18,7 @@ class VariantTraitTest extends TestCase
      */
     public function testGetVariantThrowsExceptionForWrongNumberOfBytes(string $bytes): void
     {
-        /** @var Fields $trait */
-        $trait = Double::for(VariantTrait::class);
-        $trait->allows('getBytes')->returns($bytes);
-        $trait->allows('isMax')->returns(false);
-        $trait->allows('isNil')->returns(false);
+        $trait = $this->getTraitWithBytes($bytes);
 
         $this->expectException(InvalidBytesException::class);
         $this->expectExceptionMessage('Invalid number of bytes');
@@ -50,11 +44,7 @@ class VariantTraitTest extends TestCase
     {
         $bytes = (string) hex2bin(str_replace('-', '', $uuid));
 
-        /** @var Fields $trait */
-        $trait = Double::for(VariantTrait::class);
-        $trait->allows('getBytes')->returns($bytes);
-        $trait->allows('isMax')->returns(false);
-        $trait->allows('isNil')->returns(false);
+        $trait = $this->getTraitWithBytes($bytes);
 
         $this->assertSame($expectedVariant, $trait->getVariant());
     }
@@ -102,5 +92,34 @@ class VariantTraitTest extends TestCase
             ['b08c6fff7dc5e111eb210800200c9a66', 7],
             ['b08c6fff7dc5e111fb210800200c9a66', 7],
         ];
+    }
+
+    /**
+     * Double cannot target a trait, so use it in an anonymous class instead
+     */
+    private function getTraitWithBytes(string $bytes): object
+    {
+        return new class ($bytes) {
+            use VariantTrait;
+
+            public function __construct(private string $bytes)
+            {
+            }
+
+            public function getBytes(): string
+            {
+                return $this->bytes;
+            }
+
+            public function isMax(): bool
+            {
+                return false;
+            }
+
+            public function isNil(): bool
+            {
+                return false;
+            }
+        };
     }
 }
