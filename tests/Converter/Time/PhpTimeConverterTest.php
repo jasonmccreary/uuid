@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ramsey\Uuid\Test\Converter\Time;
 
+use JMac\Testing\Double;
 use Brick\Math\BigInteger;
 use Mockery;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -52,7 +53,7 @@ class PhpTimeConverterTest extends TestCase
     public function testCalculateTimeThrowsExceptionWhenSecondsIsNotOnlyDigits(): void
     {
         /** @var Mockery\MockInterface & PhpTimeConverter $converter */
-        $converter = Mockery::mock(PhpTimeConverter::class)->makePartial();
+        $converter = Double::for(PhpTimeConverter::class)->passthru();
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
@@ -66,7 +67,7 @@ class PhpTimeConverterTest extends TestCase
     public function testCalculateTimeThrowsExceptionWhenMicrosecondsIsNotOnlyDigits(): void
     {
         /** @var Mockery\MockInterface & PhpTimeConverter $converter */
-        $converter = Mockery::mock(PhpTimeConverter::class)->makePartial();
+        $converter = Double::for(PhpTimeConverter::class)->passthru();
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(

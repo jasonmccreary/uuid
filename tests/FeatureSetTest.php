@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ramsey\Uuid\Test;
 
+use JMac\Testing\Double;
 use Mockery;
 use Ramsey\Uuid\Builder\FallbackBuilder;
 use Ramsey\Uuid\Converter\TimeConverterInterface;
@@ -34,7 +35,7 @@ class FeatureSetTest extends TestCase
 
     public function testSetValidatorSetsTheProvidedValidator(): void
     {
-        $validator = Mockery::mock(ValidatorInterface::class);
+        $validator = Double::for(ValidatorInterface::class);
 
         $featureSet = new FeatureSet();
         $featureSet->setValidator($validator);
@@ -73,7 +74,7 @@ class FeatureSetTest extends TestCase
 
     public function testSetNodeProvider(): void
     {
-        $nodeProvider = Mockery::mock(NodeProviderInterface::class);
+        $nodeProvider = Double::for(NodeProviderInterface::class);
         $featureSet = new FeatureSet();
         $featureSet->setNodeProvider($nodeProvider);
 

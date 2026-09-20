@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ramsey\Uuid\Test\Builder;
 
+use JMac\Testing\Double;
 use Mockery;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Ramsey\Uuid\Builder\FallbackBuilder;
@@ -28,24 +29,24 @@ class FallbackBuilderTest extends TestCase
 {
     public function testBuildThrowsExceptionAfterAllConfiguredBuildersHaveErrored(): void
     {
-        $codec = Mockery::mock(CodecInterface::class);
+        $codec = Double::for(CodecInterface::class);
         $bytes = 'foobar';
 
-        $builder1 = Mockery::mock(UuidBuilderInterface::class);
+        $builder1 = Double::for(UuidBuilderInterface::class);
         $builder1
             ->shouldReceive('build')
             ->once()
             ->with($codec, $bytes)
             ->andThrow(UnableToBuildUuidException::class);
 
-        $builder2 = Mockery::mock(UuidBuilderInterface::class);
+        $builder2 = Double::for(UuidBuilderInterface::class);
         $builder2
             ->shouldReceive('build')
             ->once()
             ->with($codec, $bytes)
             ->andThrow(UnableToBuildUuidException::class);
 
-        $builder3 = Mockery::mock(UuidBuilderInterface::class);
+        $builder3 = Double::for(UuidBuilderInterface::class);
         $builder3
             ->shouldReceive('build')
             ->once()

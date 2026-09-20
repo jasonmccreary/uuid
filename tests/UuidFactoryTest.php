@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ramsey\Uuid\Test;
 
+use JMac\Testing\Double;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
@@ -64,17 +65,17 @@ class UuidFactoryTest extends TestCase
 
     public function testGettersReturnValueFromFeatureSet(): void
     {
-        $codec = Mockery::mock(CodecInterface::class);
-        $nodeProvider = Mockery::mock(NodeProviderInterface::class);
-        $randomGenerator = Mockery::mock(RandomGeneratorInterface::class);
-        $timeConverter = Mockery::mock(TimeConverterInterface::class);
-        $timeGenerator = Mockery::mock(TimeGeneratorInterface::class);
-        $unixTimeGenerator = Mockery::mock(TimeGeneratorInterface::class);
-        $nameGenerator = Mockery::mock(NameGeneratorInterface::class);
-        $dceSecurityGenerator = Mockery::mock(DceSecurityGeneratorInterface::class);
-        $numberConverter = Mockery::mock(NumberConverterInterface::class);
-        $builder = Mockery::mock(UuidBuilderInterface::class);
-        $validator = Mockery::mock(ValidatorInterface::class);
+        $codec = Double::for(CodecInterface::class);
+        $nodeProvider = Double::for(NodeProviderInterface::class);
+        $randomGenerator = Double::for(RandomGeneratorInterface::class);
+        $timeConverter = Double::for(TimeConverterInterface::class);
+        $timeGenerator = Double::for(TimeGeneratorInterface::class);
+        $unixTimeGenerator = Double::for(TimeGeneratorInterface::class);
+        $nameGenerator = Double::for(NameGeneratorInterface::class);
+        $dceSecurityGenerator = Double::for(DceSecurityGeneratorInterface::class);
+        $numberConverter = Double::for(NumberConverterInterface::class);
+        $builder = Double::for(UuidBuilderInterface::class);
+        $validator = Double::for(ValidatorInterface::class);
 
         $featureSet = Mockery::mock(FeatureSet::class, [
             'getCodec' => $codec,
@@ -225,7 +226,7 @@ class UuidFactoryTest extends TestCase
 
         $this->assertInstanceOf(DefaultNameGenerator::class, $factory->getNameGenerator());
 
-        $nameGenerator = Mockery::mock(NameGeneratorInterface::class);
+        $nameGenerator = Double::for(NameGeneratorInterface::class);
         $factory->setNameGenerator($nameGenerator);
 
         $this->assertSame($nameGenerator, $factory->getNameGenerator());

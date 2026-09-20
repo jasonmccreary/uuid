@@ -2,6 +2,7 @@
 
 namespace Ramsey\Uuid\Test;
 
+use JMac\Testing\Double;
 use Mockery;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\PreserveGlobalState;
@@ -346,7 +347,7 @@ class ExpectedBehaviorTest extends TestCase
     {
         $this->assertInstanceOf('Ramsey\Uuid\UuidFactory', Uuid::getFactory());
 
-        $factory = Mockery::mock('Ramsey\Uuid\UuidFactory');
+        $factory = Double::for('Ramsey\Uuid\UuidFactory');
         Uuid::setFactory($factory);
 
         $this->assertSame($factory, Uuid::getFactory());
@@ -356,7 +357,7 @@ class ExpectedBehaviorTest extends TestCase
     #[PreserveGlobalState(false)]
     public function testFactoryProvidesFunctionality(): void
     {
-        $uuid = Mockery::mock('Ramsey\Uuid\UuidInterface');
+        $uuid = Double::for('Ramsey\Uuid\UuidInterface');
 
         $factory = Mockery::mock('Ramsey\Uuid\UuidFactoryInterface', [
             'uuid1' => $uuid,
@@ -392,7 +393,7 @@ class ExpectedBehaviorTest extends TestCase
     #[PreserveGlobalState(false)]
     public function testUsingCustomCodec(): void
     {
-        $mockUuid = Mockery::mock('Ramsey\Uuid\UuidInterface');
+        $mockUuid = Double::for('Ramsey\Uuid\UuidInterface');
 
         $codec = Mockery::mock('Ramsey\Uuid\Codec\CodecInterface', [
             'encode' => 'abcd1234',
@@ -461,7 +462,7 @@ class ExpectedBehaviorTest extends TestCase
             'getNode' => new Hexadecimal('0123456789ab'),
         ]);
 
-        $timeConverter = Mockery::mock('Ramsey\Uuid\Converter\TimeConverterInterface');
+        $timeConverter = Double::for('Ramsey\Uuid\Converter\TimeConverterInterface');
         $timeConverter
             ->shouldReceive('calculateTime')
             ->andReturnUsing(function (int $seconds, int $microseconds) {
