@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Ramsey\Uuid\Test\Converter\Time;
 
 use Brick\Math\BigInteger;
-use JMac\Testing\Double;
-use JMac\Testing\DoubleInterface;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Ramsey\Uuid\Converter\Time\GenericTimeConverter;
 use Ramsey\Uuid\Converter\Time\PhpTimeConverter;
@@ -52,8 +50,7 @@ class PhpTimeConverterTest extends TestCase
 
     public function testCalculateTimeThrowsExceptionWhenSecondsIsNotOnlyDigits(): void
     {
-        /** @var DoubleInterface & PhpTimeConverter $converter */
-        $converter = Double::for(PhpTimeConverter::class)->passthru();
+        $converter = new PhpTimeConverter();
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
@@ -66,8 +63,7 @@ class PhpTimeConverterTest extends TestCase
 
     public function testCalculateTimeThrowsExceptionWhenMicrosecondsIsNotOnlyDigits(): void
     {
-        /** @var DoubleInterface & PhpTimeConverter $converter */
-        $converter = Double::for(PhpTimeConverter::class)->passthru();
+        $converter = new PhpTimeConverter();
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
