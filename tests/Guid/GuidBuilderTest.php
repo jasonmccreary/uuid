@@ -19,10 +19,7 @@ class GuidBuilderTest extends TestCase
         $codec = Double::for(CodecInterface::class);
 
         $builder = Double::for(GuidBuilder::class)->passthru();
-        $builder->shouldReceive('buildFields')->andThrow(
-            RuntimeException::class,
-            'exception thrown'
-        );
+        $builder->allows('buildFields')->throws(new RuntimeException('exception thrown'));
 
         $this->expectException(UnableToBuildUuidException::class);
         $this->expectExceptionMessage('exception thrown');

@@ -1669,10 +1669,7 @@ class UuidTest extends TestCase
         $numberConverter = new GenericNumberConverter(new BrickMathCalculator());
         $timeConverter = Double::for(TimeConverterInterface::class);
 
-        $timeConverter
-            ->shouldReceive('convertTime')
-            ->once()
-            ->andReturn(new Time(1234567890, '1234567'));
+        $timeConverter->expects('convertTime')->returns(new Time(1234567890, '1234567'));
 
         $builder = new UuidBuilder($numberConverter, $timeConverter);
         $codec = new StringCodec($builder);

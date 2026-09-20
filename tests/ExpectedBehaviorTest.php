@@ -463,9 +463,7 @@ class ExpectedBehaviorTest extends TestCase
         ]);
 
         $timeConverter = Double::for('Ramsey\Uuid\Converter\TimeConverterInterface');
-        $timeConverter
-            ->shouldReceive('calculateTime')
-            ->andReturnUsing(function (int $seconds, int $microseconds) {
+        $timeConverter->allows('calculateTime')->resolves(function (int $seconds, int $microseconds) {
                 return new Hexadecimal('abcd' . dechex($microseconds) . dechex($seconds));
             });
 

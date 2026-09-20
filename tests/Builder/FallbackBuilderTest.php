@@ -33,25 +33,13 @@ class FallbackBuilderTest extends TestCase
         $bytes = 'foobar';
 
         $builder1 = Double::for(UuidBuilderInterface::class);
-        $builder1
-            ->shouldReceive('build')
-            ->once()
-            ->with($codec, $bytes)
-            ->andThrow(UnableToBuildUuidException::class);
+        $builder1->expects('build')->with($codec, $bytes)->throws(new UnableToBuildUuidException());
 
         $builder2 = Double::for(UuidBuilderInterface::class);
-        $builder2
-            ->shouldReceive('build')
-            ->once()
-            ->with($codec, $bytes)
-            ->andThrow(UnableToBuildUuidException::class);
+        $builder2->expects('build')->with($codec, $bytes)->throws(new UnableToBuildUuidException());
 
         $builder3 = Double::for(UuidBuilderInterface::class);
-        $builder3
-            ->shouldReceive('build')
-            ->once()
-            ->with($codec, $bytes)
-            ->andThrow(UnableToBuildUuidException::class);
+        $builder3->expects('build')->with($codec, $bytes)->throws(new UnableToBuildUuidException());
 
         $fallbackBuilder = new FallbackBuilder([$builder1, $builder2, $builder3]);
 
