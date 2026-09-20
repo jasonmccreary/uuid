@@ -77,19 +77,18 @@ class UuidFactoryTest extends TestCase
         $builder = Double::for(UuidBuilderInterface::class);
         $validator = Double::for(ValidatorInterface::class);
 
-        $featureSet = Mockery::mock(FeatureSet::class, [
-            'getCodec' => $codec,
-            'getNodeProvider' => $nodeProvider,
-            'getRandomGenerator' => $randomGenerator,
-            'getTimeConverter' => $timeConverter,
-            'getTimeGenerator' => $timeGenerator,
-            'getNameGenerator' => $nameGenerator,
-            'getDceSecurityGenerator' => $dceSecurityGenerator,
-            'getNumberConverter' => $numberConverter,
-            'getBuilder' => $builder,
-            'getValidator' => $validator,
-            'getUnixTimeGenerator' => $unixTimeGenerator,
-        ]);
+        $featureSet = Double::for(FeatureSet::class);
+        $featureSet->allows('getCodec')->returns($codec);
+        $featureSet->allows('getNodeProvider')->returns($nodeProvider);
+        $featureSet->allows('getRandomGenerator')->returns($randomGenerator);
+        $featureSet->allows('getTimeConverter')->returns($timeConverter);
+        $featureSet->allows('getTimeGenerator')->returns($timeGenerator);
+        $featureSet->allows('getNameGenerator')->returns($nameGenerator);
+        $featureSet->allows('getDceSecurityGenerator')->returns($dceSecurityGenerator);
+        $featureSet->allows('getNumberConverter')->returns($numberConverter);
+        $featureSet->allows('getBuilder')->returns($builder);
+        $featureSet->allows('getValidator')->returns($validator);
+        $featureSet->allows('getUnixTimeGenerator')->returns($unixTimeGenerator);
 
         $uuidFactory = new UuidFactory($featureSet);
         $this->assertSame(

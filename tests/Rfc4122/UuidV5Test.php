@@ -21,9 +21,8 @@ class UuidV5Test extends TestCase
     #[DataProvider('provideTestVersions')]
     public function testConstructorThrowsExceptionWhenFieldsAreNotValidForType(Version $version): void
     {
-        $fields = Mockery::mock(FieldsInterface::class, [
-            'getVersion' => $version,
-        ]);
+        $fields = Double::for(FieldsInterface::class);
+        $fields->allows('getVersion')->returns($version);
 
         $numberConverter = Double::for(NumberConverterInterface::class);
         $codec = Double::for(CodecInterface::class);

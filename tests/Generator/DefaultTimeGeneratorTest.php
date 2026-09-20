@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ramsey\Uuid\Test\Generator;
 
+use JMac\Testing\Double;
 use Exception;
 use Mockery;
 use Mockery\MockInterface;
@@ -58,9 +59,8 @@ class DefaultTimeGeneratorTest extends TestCase
         $this->calculatedTime = new Hexadecimal('03cb98e083cb98e0');
 
         $time = new Time($this->currentTime['sec'], $this->currentTime['usec']);
-        $this->timeProvider = Mockery::mock(TimeProviderInterface::class, [
-            'getTime' => $time,
-        ]);
+        $this->timeProvider = Double::for(TimeProviderInterface::class);
+        $this->timeProvider->allows('getTime')->returns($time);
     }
 
     protected function tearDown(): void

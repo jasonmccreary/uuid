@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ramsey\Uuid\Test\Codec;
 
+use JMac\Testing\Double;
 use InvalidArgumentException;
 use Mockery;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -68,9 +69,8 @@ class StringCodecTest extends TestCase
     {
         $expected = hex2bin('123456781234abcdabef1234abcd4321');
 
-        $fields = Mockery::mock(FieldsInterface::class, [
-            'getBytes' => hex2bin('123456781234abcdabef1234abcd4321'),
-        ]);
+        $fields = Double::for(FieldsInterface::class);
+        $fields->allows('getBytes')->returns(hex2bin('123456781234abcdabef1234abcd4321'));
 
         $this->uuid->method('getFields')->willReturn($fields);
 
