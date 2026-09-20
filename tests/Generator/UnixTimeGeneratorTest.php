@@ -28,7 +28,7 @@ class UnixTimeGeneratorTest extends TestCase
 
         /** @var RandomGeneratorInterface&MockInterface $randomGenerator */
         $randomGenerator = Double::for(RandomGeneratorInterface::class);
-        $randomGenerator->expects()->generate(16)->andReturns(
+        $randomGenerator->expects('generate')->withArgs([16])->andReturns(
             "\xff\x00\xff\x00\xff\x00\xff\x00\xff\x00\xff\x00\xff\x00\xff\x00",
         );
 
@@ -123,10 +123,10 @@ class UnixTimeGeneratorTest extends TestCase
     {
         /** @var RandomGeneratorInterface&MockInterface $randomGenerator */
         $randomGenerator = Double::for(RandomGeneratorInterface::class);
-        $randomGenerator->expects()->generate(16)->andReturns(
+        $randomGenerator->expects('generate')->withArgs([16])->andReturns(
             "\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff",
         );
-        $randomGenerator->allows()->generate(10)->andReturns(
+        $randomGenerator->allows('generate')->withArgs([10])->andReturns(
             "\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff",
         );
 
@@ -151,10 +151,10 @@ class UnixTimeGeneratorTest extends TestCase
 
         /** @var RandomGeneratorInterface&MockInterface $randomGenerator */
         $randomGenerator = Double::for(RandomGeneratorInterface::class);
-        $randomGenerator->expects()->generate(16)->andReturns(
+        $randomGenerator->expects('generate')->withArgs([16])->andReturns(
             "\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff",
         );
-        $randomGenerator->allows()->generate(10)->andReturns(
+        $randomGenerator->allows('generate')->withArgs([10])->andReturns(
             "\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff",
         );
 
@@ -175,10 +175,10 @@ class UnixTimeGeneratorTest extends TestCase
     {
         /** @var RandomGeneratorInterface&MockInterface $randomGenerator */
         $randomGenerator = Double::for(RandomGeneratorInterface::class);
-        $randomGenerator->expects()->generate(16)->andReturns(
+        $randomGenerator->expects('generate')->withArgs([16])->andReturns(
             "\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff",
         );
-        $randomGenerator->allows()->generate(10)->andReturns(
+        $randomGenerator->allows('generate')->withArgs([10])->andReturns(
             "\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff",
         );
 
@@ -203,10 +203,10 @@ class UnixTimeGeneratorTest extends TestCase
 
         /** @var RandomGeneratorInterface&MockInterface $randomGenerator */
         $randomGenerator = Double::for(RandomGeneratorInterface::class);
-        $randomGenerator->expects()->generate(16)->andReturns(
+        $randomGenerator->expects('generate')->withArgs([16])->andReturns(
             "\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff",
         );
-        $randomGenerator->allows()->generate(10)->andReturns(
+        $randomGenerator->allows('generate')->withArgs([10])->andReturns(
             "\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff",
         );
 
