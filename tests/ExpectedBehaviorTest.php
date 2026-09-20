@@ -457,15 +457,11 @@ class ExpectedBehaviorTest extends TestCase
         $nodeProvider->allows('getNode')->returns(new Hexadecimal('0123456789ab'));
 
         $timeConverter = Double::for('Ramsey\Uuid\Converter\TimeConverterInterface');
-        $timeConverter->allows('calculateTime')->resolves(function (int $seconds, int $microseconds) {
-            return new Hexadecimal('abcd' . dechex($microseconds) . dechex($seconds));
+        $timeConverter->allows('calculateTime')->resolves(function (string $seconds, string $microseconds) {
+            return new Hexadecimal('abcd' . dechex((int) $microseconds) . dechex((int) $seconds));
         });
 
         $timeProvider = Double::for('Ramsey\Uuid\Provider\TimeProviderInterface');
-        $timeProvider->allows('currentTime')->returns([
-            'sec' => 1578522046,
-            'usec' => 10000,
-        ]);
         $timeProvider->allows('getTime')->returns(new Time(1578522046, 10000));
 
         $generator = new DefaultTimeGenerator($nodeProvider, $timeConverter, $timeProvider);
