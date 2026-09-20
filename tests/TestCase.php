@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Ramsey\Uuid\Test;
 
-use function current;
 use JMac\Testing\Integrations\PHPUnit\VerifiesDoubles;
-
-use function pack;
 use PHPUnit\Framework\TestCase as PhpUnitTestCase;
+
+use function current;
+use function pack;
 use function unpack;
 
 class TestCase extends PhpUnitTestCase
