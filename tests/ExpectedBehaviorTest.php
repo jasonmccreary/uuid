@@ -457,7 +457,7 @@ class ExpectedBehaviorTest extends TestCase
         $nodeProvider->allows('getNode')->returns(new Hexadecimal('0123456789ab'));
 
         $timeConverter = Double::for('Ramsey\Uuid\Converter\TimeConverterInterface');
-        $timeConverter->allows('calculateTime')->resolves(function (string $seconds, string $microseconds) {
+        $timeConverter->expects('calculateTime')->resolves(function (string $seconds, string $microseconds) {
             return new Hexadecimal('abcd' . dechex((int) $microseconds) . dechex((int) $seconds));
         });
 
