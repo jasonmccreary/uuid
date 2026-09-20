@@ -6,7 +6,6 @@ namespace Ramsey\Uuid\Test\Generator;
 
 use Exception;
 use JMac\Testing\Double;
-use Mockery;
 use PHPUnit\Framework\Attributes\PreserveGlobalState;
 use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -18,15 +17,17 @@ use Ramsey\Uuid\Generator\DefaultTimeGenerator;
 use Ramsey\Uuid\Provider\NodeProviderInterface;
 use Ramsey\Uuid\Provider\Time\FixedTimeProvider;
 use Ramsey\Uuid\Provider\TimeProviderInterface;
+use Ramsey\Uuid\Test\MocksFunctions;
 use Ramsey\Uuid\Test\TestCase;
 use Ramsey\Uuid\Type\Hexadecimal;
 use Ramsey\Uuid\Type\Time;
-use phpmock\mockery\PHPMockery;
 
 use function hex2bin;
 
 class DefaultTimeGeneratorTest extends TestCase
 {
+    use MocksFunctions;
+
     private TimeProviderInterface $timeProvider;
     private NodeProviderInterface & MockObject $nodeProvider;
     private TimeConverterInterface & MockObject $timeConverter;
@@ -65,7 +66,6 @@ class DefaultTimeGeneratorTest extends TestCase
     {
         parent::tearDown();
         unset($this->timeProvider, $this->nodeProvider, $this->timeConverter);
-        Mockery::close();
     }
 
     public function testGenerateUsesNodeProviderWhenNodeIsNull(): void
@@ -134,10 +134,12 @@ class DefaultTimeGeneratorTest extends TestCase
     #[PreserveGlobalState(false)]
     public function testGenerateUsesRandomSequenceWhenClockSeqNull(): void
     {
-        PHPMockery::mock('Ramsey\Uuid\Generator', 'random_int')
-            ->once()
-            ->with(0, 0x3fff)
-            ->andReturn(9622);
+        $this->expectFunctionCall(
+            'Ramsey\Uuid\Generator',
+            'random_int',
+            [0, 0x3fff],
+            9622,
+        );
         $this->timeConverter->expects($this->once())
             ->method('calculateTime')
             ->with($this->currentTime['sec'], $this->currentTime['usec'])
@@ -154,9 +156,12 @@ class DefaultTimeGeneratorTest extends TestCase
     #[PreserveGlobalState(false)]
     public function testGenerateThrowsExceptionWhenExceptionThrownByRandomint(): void
     {
-        PHPMockery::mock('Ramsey\Uuid\Generator', 'random_int')
-            ->once()
-            ->andThrow(new Exception('Could not gather sufficient random data'));
+        $this->expectFunctionCall(
+            'Ramsey\Uuid\Generator',
+            'random_int',
+            null,
+            new Exception('Could not gather sufficient random data'),
+        );
 
         $defaultTimeGenerator = new DefaultTimeGenerator(
             $this->nodeProvider,
