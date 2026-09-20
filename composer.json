@@ -28,7 +28,8 @@
         "phpstan/phpstan-phpunit": "^2.0",
         "phpunit/phpunit": "^11.5",
         "slevomat/coding-standard": "^8.18",
-        "squizlabs/php_codesniffer": "^3.13"
+        "squizlabs/php_codesniffer": "^3.13",
+        "jasonmccreary/double": "~0.10"
     },
     "replace": {
         "rhumsaa/uuid": "self.version"
