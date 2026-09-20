@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace Ramsey\Uuid\Test\Generator;
 
 use Exception;
+use function hex2bin;
+use phpmock\mockery\PHPMockery;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\PreserveGlobalState;
 use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use Ramsey\Uuid\Exception\RandomSourceException;
 use Ramsey\Uuid\Generator\RandomBytesGenerator;
-use Ramsey\Uuid\Test\TestCase;
-use phpmock\mockery\PHPMockery;
 
-use function hex2bin;
+use Ramsey\Uuid\Test\TestCase;
 
 class RandomBytesGeneratorTest extends TestCase
 {

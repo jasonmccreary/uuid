@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Ramsey\Uuid\Test;
 
-use JMac\Testing\Double;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
-use Mockery;
+use function hex2bin;
+use JMac\Testing\Double;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use Ramsey\Uuid\Builder\UuidBuilderInterface;
@@ -25,9 +25,8 @@ use Ramsey\Uuid\Provider\NodeProviderInterface;
 use Ramsey\Uuid\Rfc4122\UuidV1;
 use Ramsey\Uuid\Type\Hexadecimal;
 use Ramsey\Uuid\UuidFactory;
-use Ramsey\Uuid\Validator\ValidatorInterface;
 
-use function hex2bin;
+use Ramsey\Uuid\Validator\ValidatorInterface;
 use function strtoupper;
 
 class UuidFactoryTest extends TestCase

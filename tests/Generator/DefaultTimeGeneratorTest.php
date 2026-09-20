@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Ramsey\Uuid\Test\Generator;
 
-use JMac\Testing\Double;
 use Exception;
+use function hex2bin;
+use JMac\Testing\Double;
 use Mockery;
 use Mockery\MockInterface;
+use phpmock\mockery\PHPMockery;
 use PHPUnit\Framework\Attributes\PreserveGlobalState;
 use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -22,10 +24,8 @@ use Ramsey\Uuid\Provider\Time\FixedTimeProvider;
 use Ramsey\Uuid\Provider\TimeProviderInterface;
 use Ramsey\Uuid\Test\TestCase;
 use Ramsey\Uuid\Type\Hexadecimal;
-use Ramsey\Uuid\Type\Time;
-use phpmock\mockery\PHPMockery;
 
-use function hex2bin;
+use Ramsey\Uuid\Type\Time;
 
 class DefaultTimeGeneratorTest extends TestCase
 {

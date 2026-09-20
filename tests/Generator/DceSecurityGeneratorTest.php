@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Ramsey\Uuid\Test\Generator;
 
+use function bin2hex;
 use JMac\Testing\Double;
-use Mockery;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Ramsey\Uuid\Converter\Number\GenericNumberConverter;
 use Ramsey\Uuid\Converter\NumberConverterInterface;
@@ -22,9 +22,8 @@ use Ramsey\Uuid\Test\TestCase;
 use Ramsey\Uuid\Type\Hexadecimal;
 use Ramsey\Uuid\Type\Integer as IntegerObject;
 use Ramsey\Uuid\Type\Time;
-use Ramsey\Uuid\Uuid;
 
-use function bin2hex;
+use Ramsey\Uuid\Uuid;
 use function substr;
 
 class DceSecurityGeneratorTest extends TestCase

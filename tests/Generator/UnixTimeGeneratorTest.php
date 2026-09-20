@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Ramsey\Uuid\Test\Generator;
 
-use JMac\Testing\Double;
 use DateTimeImmutable;
-use Mockery;
-use Mockery\MockInterface;
+use JMac\Testing\Double;
+use JMac\Testing\DoubleInterface;
 use PHPUnit\Framework\Attributes\PreserveGlobalState;
 use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use Ramsey\Uuid\Generator\RandomBytesGenerator;
@@ -26,7 +25,7 @@ class UnixTimeGeneratorTest extends TestCase
         $dateTime = new DateTimeImmutable('@1578612359.521023');
         $expectedBytes = "\x01\x6f\x8c\xa1\x01\x61\x03\x00\xff\x00\xff\x00\xff\x00\xff\x00";
 
-        /** @var RandomGeneratorInterface&MockInterface $randomGenerator */
+        /** @var RandomGeneratorInterface&DoubleInterface $randomGenerator */
         $randomGenerator = Double::for(RandomGeneratorInterface::class);
         $randomGenerator->expects('generate')->with(16)->returns("\xff\x00\xff\x00\xff\x00\xff\x00\xff\x00\xff\x00\xff\x00\xff\x00");
 
@@ -119,7 +118,7 @@ class UnixTimeGeneratorTest extends TestCase
     #[PreserveGlobalState(false)]
     public function testGenerateProducesMonotonicResultsStartingWithAllBitsSet(): void
     {
-        /** @var RandomGeneratorInterface&MockInterface $randomGenerator */
+        /** @var RandomGeneratorInterface&DoubleInterface $randomGenerator */
         $randomGenerator = Double::for(RandomGeneratorInterface::class);
         $randomGenerator->expects('generate')->with(16)->returns("\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff");
         $randomGenerator->allows('generate')->with(10)->returns("\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff");
@@ -143,7 +142,7 @@ class UnixTimeGeneratorTest extends TestCase
     {
         $dateTime = new DateTimeImmutable('now');
 
-        /** @var RandomGeneratorInterface&MockInterface $randomGenerator */
+        /** @var RandomGeneratorInterface&DoubleInterface $randomGenerator */
         $randomGenerator = Double::for(RandomGeneratorInterface::class);
         $randomGenerator->expects('generate')->with(16)->returns("\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff");
         $randomGenerator->allows('generate')->with(10)->returns("\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff");
@@ -163,7 +162,7 @@ class UnixTimeGeneratorTest extends TestCase
     #[PreserveGlobalState(false)]
     public function testGenerateProducesMonotonicResultsStartingWithAllBitsSetFor32BitPath(): void
     {
-        /** @var RandomGeneratorInterface&MockInterface $randomGenerator */
+        /** @var RandomGeneratorInterface&DoubleInterface $randomGenerator */
         $randomGenerator = Double::for(RandomGeneratorInterface::class);
         $randomGenerator->expects('generate')->with(16)->returns("\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff");
         $randomGenerator->allows('generate')->with(10)->returns("\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff");
@@ -187,7 +186,7 @@ class UnixTimeGeneratorTest extends TestCase
     {
         $dateTime = new DateTimeImmutable('now');
 
-        /** @var RandomGeneratorInterface&MockInterface $randomGenerator */
+        /** @var RandomGeneratorInterface&DoubleInterface $randomGenerator */
         $randomGenerator = Double::for(RandomGeneratorInterface::class);
         $randomGenerator->expects('generate')->with(16)->returns("\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff");
         $randomGenerator->allows('generate')->with(10)->returns("\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff");

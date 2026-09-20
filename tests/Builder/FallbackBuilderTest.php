@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Ramsey\Uuid\Test\Builder;
 
 use JMac\Testing\Double;
-use Mockery;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Ramsey\Uuid\Builder\FallbackBuilder;
 use Ramsey\Uuid\Builder\UuidBuilderInterface;
@@ -98,7 +97,7 @@ class FallbackBuilderTest extends TestCase
                     case 'The byte string received does not contain a valid version':
                     case 'The byte string received does not conform to the RFC 9562 (formerly RFC 4122) variant':
                     case 'The byte string received does not conform to the RFC 9562 (formerly RFC 4122) '
-                        . 'or Microsoft Corporation variants':
+                    . 'or Microsoft Corporation variants':
                         // This is expected; ignoring.
                         break;
                     default:

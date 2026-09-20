@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Ramsey\Uuid\Test;
 
 use JMac\Testing\Double;
-use Mockery;
 use Ramsey\Uuid\Builder\FallbackBuilder;
 use Ramsey\Uuid\Converter\TimeConverterInterface;
 use Ramsey\Uuid\FeatureSet;
