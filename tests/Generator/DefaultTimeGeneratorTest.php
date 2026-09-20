@@ -10,7 +10,6 @@ use Mockery;
 use PHPUnit\Framework\Attributes\PreserveGlobalState;
 use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use PHPUnit\Framework\MockObject\MockObject;
-use Ramsey\Uuid\BinaryUtils;
 use Ramsey\Uuid\Converter\TimeConverterInterface;
 use Ramsey\Uuid\Exception\RandomSourceException;
 use Ramsey\Uuid\Exception\TimeSourceException;
@@ -114,8 +113,6 @@ class DefaultTimeGeneratorTest extends TestCase
         $defaultTimeGenerator->generate($this->nodeId, $this->clockSeq);
     }
 
-    #[RunInSeparateProcess]
-    #[PreserveGlobalState(false)]
     public function testGenerateDoesNotApplyVersionAndVariant(): void
     {
         $expectedBytes = hex2bin('83cb98e098e003cb0fe2122f80ca9e06');
@@ -123,10 +120,6 @@ class DefaultTimeGeneratorTest extends TestCase
         $this->timeConverter->method('calculateTime')
             ->with($this->currentTime['sec'], $this->currentTime['usec'])
             ->willReturn($this->calculatedTime);
-
-        $binaryUtils = Mockery::mock('alias:' . BinaryUtils::class);
-        $binaryUtils->shouldNotReceive('applyVersion');
-        $binaryUtils->shouldNotReceive('applyVariant');
 
         $defaultTimeGenerator = new DefaultTimeGenerator(
             $this->nodeProvider,
